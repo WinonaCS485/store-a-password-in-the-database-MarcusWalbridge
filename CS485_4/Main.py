@@ -13,7 +13,9 @@ connection = pymysql.connect(host='mrbartucz.com',
 salt = uuid.uuid4().hex
 userInput = input("Enter a Username: ")
 passwordInput = input("Enter a Password: ")
-print("Password + Salt = " + passwordInput + str(salt))
+
+print(salt)
+print("\nPassword + Salt = " + passwordInput + str(salt))
 
 # call encode
 encoded = hashlib.sha512((passwordInput + salt).encode('utf-8')).hexdigest()
@@ -31,6 +33,10 @@ try:
 
         sql = "SELECT * FROM Us3r_Acc0unts WHERE userName LIKE %s AND password LIKE %s"
         cursor.execute(sql, args)
+
+        for result in cursor:
+            print(result)
+
 except Exception as e:
     print(e)
 finally:
